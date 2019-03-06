@@ -2,7 +2,7 @@
 #include <Vleft.h>
 //#include <verilated_vcd_sc.h>
 
-#include <stdio.h>
+#include <iostream>
 
 
 
@@ -37,55 +37,54 @@ int sc_main(int argc, char * argv[])
 
 
 
- clr=1;
+   clr=1;
    sc_start(10*T);
-  printf("\n out=%d",(int)out);
+   cout<<endl<<" out = "<<out;
 
    clr=0;
    sc_start(10*T);
-  printf("\n out=%d",(int)out);
+   cout<<endl<<" out = "<<out;
 
 
    in=1;
    sc_start(20*T);
-    printf("\n out=%d",(int)out);
-
-
-  in=0;
-   sc_start(20*T);
-
- printf("\n out=%d",(int)out);
-
-   in=0;
-   sc_start(20*T);
-    printf("\n out=%d",(int)out);
-
-
-   in=1;
-   sc_start(20*T);
-    printf("\n out=%d",(int)out);
-
-
-   in=1;
-   sc_start(20*T);
- printf("\n out=%d",(int)out);
-
-
-  in=1;
-   sc_start(20*T);
-    printf("\n out=%d",(int)out);
-
-
-
-   in=1;
-   sc_start(20*T);
-    printf("\n out=%d",(int)out);
-
+   cout<<endl<<" out = "<<out;
 
 
    in=0;
    sc_start(20*T);
-    printf("\n out=%d",(int)out);
+   cout<<endl<<" out = "<<out;
+
+   in=0;
+   sc_start(20*T);
+   cout<<endl<<" out = "<<out;
+
+
+   in=1;
+   sc_start(20*T);
+   cout<<endl<<" out = "<<out;
+
+
+   in=1;
+   sc_start(20*T);
+   cout<<endl<<" out = "<<out;
+
+
+   in=1;
+   sc_start(20*T);
+   cout<<endl<<" out = "<<out;
+
+
+
+   in=1;
+   sc_start(20*T);
+   cout<<endl<<" out = "<<out;
+
+
+
+   in=0;
+   sc_start(20*T);
+   cout<<endl<<" out = "<<out;
 
     
 

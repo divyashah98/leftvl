@@ -1,4 +1,4 @@
-// Verilated -*- C++ -*-
+// Verilated -*- SystemC -*-
 // DESCRIPTION: Verilator output: Design implementation internals
 // See Vleft.h for the primary calling header
 
@@ -12,9 +12,19 @@
 
 //--------------------
 
-VL_CTOR_IMP(Vleft) {
+VL_SC_CTOR_IMP(Vleft)
+#if (SYSTEMC_VERSION>20011000)
+    : out("out"), in("in"), clr("clr"), clk("clk")
+#endif
+ {
     Vleft__Syms* __restrict vlSymsp = __VlSymsp = new Vleft__Syms(this, name());
     Vleft* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Sensitivities on all clocks and combo inputs
+    SC_METHOD(eval);
+    sensitive << in;
+    sensitive << clr;
+    sensitive << clk;
+    
     // Reset internal values
     
     // Reset structure values
@@ -72,30 +82,63 @@ void Vleft::_eval_initial_loop(Vleft__Syms* __restrict vlSymsp) {
 //--------------------
 // Internal Methods
 
-VL_INLINE_OPT void Vleft::_sequent__TOP__1(Vleft__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vleft::_sequent__TOP__1\n"); );
+VL_INLINE_OPT void Vleft::_combo__TOP__1(Vleft__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vleft::_combo__TOP__1\n"); );
+    Vleft* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
+    VL_ASSIGN_ISI(1,vlTOPp->__Vcellinp__left__clk, vlTOPp->clk);
+}
+
+void Vleft::_settle__TOP__2(Vleft__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vleft::_settle__TOP__2\n"); );
+    Vleft* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
+    VL_ASSIGN_ISI(1,vlTOPp->__Vcellinp__left__clk, vlTOPp->clk);
+    VL_ASSIGN_ISI(1,vlTOPp->__Vcellinp__left__clr, vlTOPp->clr);
+    VL_ASSIGN_ISI(1,vlTOPp->__Vcellinp__left__in, vlTOPp->in);
+    VL_ASSIGN_SII(8,vlTOPp->out, vlTOPp->__Vcellout__left__out);
+}
+
+VL_INLINE_OPT void Vleft::_sequent__TOP__3(Vleft__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vleft::_sequent__TOP__3\n"); );
     Vleft* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Variables
-    VL_SIG8(__Vdly__out,7,0);
+    VL_SIG8(__Vdly____Vcellout__left__out,7,0);
     // Body
-    __Vdly__out = vlTOPp->out;
+    __Vdly____Vcellout__left__out = vlTOPp->__Vcellout__left__out;
     // ALWAYS at left.v:3
-    __Vdly__out = ((IData)(vlTOPp->clr) ? 0U : ((0xfeU 
-						 & ((IData)(vlTOPp->out) 
-						    << 1U)) 
-						| (IData)(vlTOPp->in)));
-    vlTOPp->out = __Vdly__out;
+    __Vdly____Vcellout__left__out = ((IData)(vlTOPp->__Vcellinp__left__clr)
+				      ? 0U : ((0xfeU 
+					       & ((IData)(vlTOPp->__Vcellout__left__out) 
+						  << 1U)) 
+					      | (IData)(vlTOPp->__Vcellinp__left__in)));
+    vlTOPp->__Vcellout__left__out = __Vdly____Vcellout__left__out;
+    VL_ASSIGN_SII(8,vlTOPp->out, vlTOPp->__Vcellout__left__out);
+}
+
+VL_INLINE_OPT void Vleft::_combo__TOP__4(Vleft__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vleft::_combo__TOP__4\n"); );
+    Vleft* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
+    VL_ASSIGN_ISI(1,vlTOPp->__Vcellinp__left__clr, vlTOPp->clr);
+    VL_ASSIGN_ISI(1,vlTOPp->__Vcellinp__left__in, vlTOPp->in);
 }
 
 void Vleft::_eval(Vleft__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vleft::_eval\n"); );
     Vleft* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    if (((~ (IData)(vlTOPp->clk)) & (IData)(vlTOPp->__Vclklast__TOP__clk))) {
-	vlTOPp->_sequent__TOP__1(vlSymsp);
+    vlTOPp->_combo__TOP__1(vlSymsp);
+    vlTOPp->__Vm_traceActivity = (2U | vlTOPp->__Vm_traceActivity);
+    if (((~ (IData)(vlTOPp->__Vcellinp__left__clk)) 
+	 & (IData)(vlTOPp->__Vclklast__TOP____Vcellinp__left__clk))) {
+	vlTOPp->_sequent__TOP__3(vlSymsp);
+	vlTOPp->__Vm_traceActivity = (4U | vlTOPp->__Vm_traceActivity);
     }
+    vlTOPp->_combo__TOP__4(vlSymsp);
     // Final
-    vlTOPp->__Vclklast__TOP__clk = vlTOPp->clk;
+    vlTOPp->__Vclklast__TOP____Vcellinp__left__clk 
+	= vlTOPp->__Vcellinp__left__clk;
 }
 
 void Vleft::_eval_initial(Vleft__Syms* __restrict vlSymsp) {
@@ -113,6 +156,9 @@ void Vleft::final() {
 void Vleft::_eval_settle(Vleft__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vleft::_eval_settle\n"); );
     Vleft* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
+    vlTOPp->_settle__TOP__2(vlSymsp);
+    vlTOPp->__Vm_traceActivity = (1U | vlTOPp->__Vm_traceActivity);
 }
 
 VL_INLINE_OPT QData Vleft::_change_request(Vleft__Syms* __restrict vlSymsp) {
@@ -127,23 +173,16 @@ VL_INLINE_OPT QData Vleft::_change_request(Vleft__Syms* __restrict vlSymsp) {
 #ifdef VL_DEBUG
 void Vleft::_eval_debug_assertions() {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vleft::_eval_debug_assertions\n"); );
-    // Body
-    if (VL_UNLIKELY((in & 0xfeU))) {
-	Verilated::overWidthError("in");}
-    if (VL_UNLIKELY((clr & 0xfeU))) {
-	Verilated::overWidthError("clr");}
-    if (VL_UNLIKELY((clk & 0xfeU))) {
-	Verilated::overWidthError("clk");}
 }
 #endif // VL_DEBUG
 
 void Vleft::_ctor_var_reset() {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vleft::_ctor_var_reset\n"); );
     // Body
-    out = VL_RAND_RESET_I(8);
-    in = VL_RAND_RESET_I(1);
-    clr = VL_RAND_RESET_I(1);
-    clk = VL_RAND_RESET_I(1);
-    __Vclklast__TOP__clk = VL_RAND_RESET_I(1);
+    __Vcellinp__left__clk = VL_RAND_RESET_I(1);
+    __Vcellinp__left__clr = VL_RAND_RESET_I(1);
+    __Vcellinp__left__in = VL_RAND_RESET_I(1);
+    __Vcellout__left__out = VL_RAND_RESET_I(8);
+    __Vclklast__TOP____Vcellinp__left__clk = VL_RAND_RESET_I(1);
     __Vm_traceActivity = VL_RAND_RESET_I(32);
 }

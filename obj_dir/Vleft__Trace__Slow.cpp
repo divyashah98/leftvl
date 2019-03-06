@@ -57,14 +57,14 @@ void Vleft::traceInitThis__1(Vleft__Syms* __restrict vlSymsp, VerilatedVcd* vcdp
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-	vcdp->declBus  (c+1,"out",-1,7,0);
-	vcdp->declBit  (c+2,"in",-1);
-	vcdp->declBit  (c+3,"clr",-1);
-	vcdp->declBit  (c+4,"clk",-1);
-	vcdp->declBus  (c+1,"left out",-1,7,0);
-	vcdp->declBit  (c+2,"left in",-1);
-	vcdp->declBit  (c+3,"left clr",-1);
-	vcdp->declBit  (c+4,"left clk",-1);
+	// Tracing: out // Ignored: Verilator trace_off at left.v:1
+	// Tracing: in // Ignored: Verilator trace_off at left.v:1
+	// Tracing: clr // Ignored: Verilator trace_off at left.v:1
+	// Tracing: clk // Ignored: Verilator trace_off at left.v:1
+	vcdp->declBus  (c+4,"left out",-1,7,0);
+	vcdp->declBit  (c+1,"left in",-1);
+	vcdp->declBit  (c+2,"left clr",-1);
+	vcdp->declBit  (c+3,"left clk",-1);
     }
 }
 
@@ -74,9 +74,9 @@ void Vleft::traceFullThis__1(Vleft__Syms* __restrict vlSymsp, VerilatedVcd* vcdp
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-	vcdp->fullBus  (c+1,(vlTOPp->out),8);
-	vcdp->fullBit  (c+2,(vlTOPp->in));
-	vcdp->fullBit  (c+3,(vlTOPp->clr));
-	vcdp->fullBit  (c+4,(vlTOPp->clk));
+	vcdp->fullBit  (c+1,(vlTOPp->__Vcellinp__left__in));
+	vcdp->fullBit  (c+2,(vlTOPp->__Vcellinp__left__clr));
+	vcdp->fullBit  (c+3,(vlTOPp->__Vcellinp__left__clk));
+	vcdp->fullBus  (c+4,(vlTOPp->__Vcellout__left__out),8);
     }
 }

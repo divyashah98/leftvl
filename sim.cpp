@@ -34,7 +34,7 @@ void init_ckt()
     top->clr=1;
     top-> eval();
     tfp->dump(mytime);
-    printf("\n  time =%d rst = %d out = %d  \n",mytime ,top->clr,top->out); 
+    printf("\n  time =%d rst = %d out = %d  \n",mytime ,top->clr,top->out);
 
     mytime=10;
     top->clr=0;

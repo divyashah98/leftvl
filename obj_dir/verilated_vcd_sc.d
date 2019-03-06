@@ -1,9 +1,7 @@
-Vleft__ALLsup.o: Vleft__ALLsup.cpp Vleft__Trace.cpp \
- /usr/share/verilator/include/verilated_vcd_c.h \
+verilated_vcd_sc.o: /usr/share/verilator/include/verilated_vcd_sc.cpp \
  /usr/share/verilator/include/verilatedos.h \
- /usr/share/verilator/include/verilated.h \
- /usr/share/verilator/include/verilated_config.h Vleft__Syms.h \
- /usr/share/verilator/include/verilated.h Vleft.h \
+ /usr/share/verilator/include/verilated_vcd_sc.h \
+ /usr/share/verilator/include/verilated_sc.h \
  /usr/local/systemc-2.3/include/systemc.h \
  /usr/local/systemc-2.3/include/systemc \
  /usr/local/systemc-2.3/include/sysc/kernel/sc_cmnhdr.h \
@@ -107,5 +105,6 @@ Vleft__ALLsup.o: Vleft__ALLsup.cpp Vleft__Trace.cpp \
  /usr/local/systemc-2.3/include/sysc/utils/sc_pvector.h \
  /usr/local/systemc-2.3/include/sysc/utils/sc_string_view.h \
  /usr/local/systemc-2.3/include/sysc/utils/sc_vector.h \
- /usr/share/verilator/include/verilated_sc.h Vleft__Syms.cpp \
- Vleft__Trace__Slow.cpp
+ /usr/share/verilator/include/verilated_vcd_c.h \
+ /usr/share/verilator/include/verilated.h \
+ /usr/share/verilator/include/verilated_config.h

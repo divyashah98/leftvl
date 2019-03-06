@@ -1,4 +1,4 @@
-// Verilated -*- C++ -*-
+// Verilated -*- SystemC -*-
 // DESCRIPTION: Verilator output: Primary design header
 //
 // This header should be included by all source files instantiating the design.
@@ -8,6 +8,8 @@
 #ifndef _Vleft_H_
 #define _Vleft_H_
 
+#include "systemc.h"
+#include "verilated_sc.h"
 #include "verilated.h"
 
 class Vleft__Syms;
@@ -15,23 +17,27 @@ class VerilatedVcd;
 
 //----------
 
-VL_MODULE(Vleft) {
+SC_MODULE(Vleft) {
   public:
     
     // PORTS
     // The application code writes and reads these signals to
     // propagate new values into/out from the Verilated model.
-    VL_IN8(clk,0,0);
-    VL_OUT8(out,7,0);
-    VL_IN8(in,0,0);
-    VL_IN8(clr,0,0);
+    sc_out<uint32_t> out;
+    sc_in<bool> in;
+    sc_in<bool> clr;
+    sc_in<bool> clk;
     
     // LOCAL SIGNALS
     // Internals; generally not touched by application code
     
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
-    VL_SIG8(__Vclklast__TOP__clk,0,0);
+    VL_SIG8(__Vcellinp__left__clk,0,0);
+    VL_SIG8(__Vcellinp__left__clr,0,0);
+    VL_SIG8(__Vcellinp__left__in,0,0);
+    VL_SIG8(__Vcellout__left__out,7,0);
+    VL_SIG8(__Vclklast__TOP____Vcellinp__left__clk,0,0);
     VL_SIG(__Vm_traceActivity,31,0);
     
     // INTERNAL VARIABLES
@@ -46,19 +52,17 @@ VL_MODULE(Vleft) {
     Vleft& operator= (const Vleft&);  ///< Copying not allowed
     Vleft(const Vleft&);  ///< Copying not allowed
   public:
-    /// Construct the model; called by application code
-    /// The special name  may be used to make a wrapper with a
-    /// single model invisible WRT DPI scope names.
-    Vleft(const char* name="TOP");
-    /// Destroy the model; called (often implicitly) by application code
-    ~Vleft();
+    SC_CTOR(Vleft);
+    virtual ~Vleft();
     /// Trace signals in the model; called by application code
     void trace (VerilatedVcdC* tfp, int levels, int options=0);
+    /// SC tracing; avoid overloaded virtual function lint warning
+    virtual void trace (sc_trace_file* tfp) const { ::sc_core::sc_module::trace(tfp); }
     
     // API METHODS
-    /// Evaluate the model.  Application must call when inputs change.
+  private:
     void eval();
-    /// Simulation complete, run final blocks.  Application must call on completion.
+  public:
     void final();
     
     // INTERNAL METHODS
@@ -68,6 +72,10 @@ VL_MODULE(Vleft) {
     void __Vconfigure(Vleft__Syms* symsp, bool first);
   private:
     static QData _change_request(Vleft__Syms* __restrict vlSymsp);
+  public:
+    static void _combo__TOP__1(Vleft__Syms* __restrict vlSymsp);
+    static void _combo__TOP__4(Vleft__Syms* __restrict vlSymsp);
+  private:
     void _ctor_var_reset();
   public:
     static void _eval(Vleft__Syms* __restrict vlSymsp);
@@ -78,9 +86,11 @@ VL_MODULE(Vleft) {
   public:
     static void _eval_initial(Vleft__Syms* __restrict vlSymsp);
     static void _eval_settle(Vleft__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__1(Vleft__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__3(Vleft__Syms* __restrict vlSymsp);
+    static void _settle__TOP__2(Vleft__Syms* __restrict vlSymsp);
     static void traceChgThis(Vleft__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__2(Vleft__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__3(Vleft__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceFullThis(Vleft__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceFullThis__1(Vleft__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceInitThis(Vleft__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
